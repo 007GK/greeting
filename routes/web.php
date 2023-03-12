@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/',function (){
-    $cat=\App\Models\Category::where('status','active')->orderBy('id','desc')->first();
-  return redirect(route('front.view',$cat->id));
+  return redirect(route('front.view'));
 });
 
 Route::post('change-password',function (\Illuminate\Http\Request $request){
@@ -31,10 +30,11 @@ Route::get('change-password',function (){
 
 Route::get('view/{id?}',function ($id=null){
     $categories=\App\Models\Category::where('status','active')->orderBy('id','desc')->get();
-    if(!isset($id) && $id==null){
-      $id=$categories->last()->id;
+    if($id==null){
+        $cards=\App\Models\Card::orderBy('id','desc')->paginate(9);
+    }else{
+        $cards=\App\Models\Card::where('category_id',$id)->orderBy('id','desc')->paginate(9);
     }
-    $cards=\App\Models\Card::where('category_id',$id)->orderBy('id','desc')->paginate(9);
     $customization=\App\Models\Customization::first();
 return view('front.index',compact('categories','cards','customization'));
 })->name('front.view');
@@ -74,7 +74,7 @@ Route::post('customizations-save',function (\Illuminate\Http\Request $request){
         else{
             $favicon=$data->favicon;
         }
-            
+
 
         \App\Models\Customization::where('id',$data->id)->update([
             'logo'=>$centerName,

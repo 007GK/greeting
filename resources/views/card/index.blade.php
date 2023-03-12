@@ -32,10 +32,10 @@
                                 <td>{{$k+1}}</td>
                                 <td>{{$card->title}}</td>
                                 <td>{{$card->category->title}}</td>
-                                <td><img src="{{asset('storage/coverImages/'.$card->cover_image)}}" alt="" height="75px" width="75px"></td>
-                                <td><img src="{{asset('storage/centerImages/'.$card->center_image)}}" alt="" height="75px" width="75px"></td>
-                                <td><img src="{{asset('storage/backgroundsImages/'.$card->back_image)}}" alt="" height="75px" width="75px"></td>
-                                <td><img src="{{asset('storage/bottomImages/'.$card->bottom_image)}}" alt="" height="75px" width="75px"></td>
+                                <td>@if(!empty($card->cover_image))<img src="{{asset('storage/coverImages/'.$card->cover_image)}}" alt="" height="75px" width="75px">@endif</td>
+                                <td>@if(!empty($card->center_image))<img src="{{asset('storage/centerImages/'.$card->center_image)}}" alt="" height="75px" width="75px">@endif</td>
+                                <td>@if(!empty($card->back_image))<img src="{{asset('storage/backgroundsImages/'.$card->back_image)}}" alt="" height="75px" width="75px">@endif</td>
+                                <td>@if(!empty($card->bottom_image))<img src="{{asset('storage/bottomImages/'.$card->bottom_image)}}" alt="" height="75px" width="75px">@endif</td>
                                 <td>{{$card->content}}</td>
                                 <td>{{$card->status}}</td>
                                 <td><a href="{{route('cards.edit',$card->id)}}"><button class="btn btn-sm btn-primary">Edit</button></a></td>
